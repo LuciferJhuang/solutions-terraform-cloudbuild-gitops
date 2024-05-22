@@ -14,8 +14,5 @@
 
 
 terraform {
-  backend "gcs" {
-    bucket = "aksgkelearning-tfstate"
-    prefix = "env/prod"
-  }
+  required_version = "~> 1.0.0"
 }

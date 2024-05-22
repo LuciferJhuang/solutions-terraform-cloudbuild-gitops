@@ -13,9 +13,5 @@
 # limitations under the License.
 
 
-terraform {
-  backend "gcs" {
-    bucket = "aksgkelearning-tfstate"
-    prefix = "env/prod"
-  }
-}
+variable "project" {}
+variable "subnet" {}
