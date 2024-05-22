@@ -15,7 +15,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "PROJECT_ID-tfstate"
+    bucket = "buoyant-sum-388217-tfstate"
     prefix = "env/dev"
   }
 }
