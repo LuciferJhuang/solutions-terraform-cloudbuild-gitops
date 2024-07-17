@@ -1,1 +1,1 @@
-project="PROJECT_ID"
+project="amplified-asset-426508-e7"
