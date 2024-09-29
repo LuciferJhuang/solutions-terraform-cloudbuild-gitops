@@ -1,1 +1,1 @@
-project="PROJECT_ID"
+project="prj-host-network-shared-vpc-01"
