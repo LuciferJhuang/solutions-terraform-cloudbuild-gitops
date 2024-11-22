@@ -15,7 +15,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "PROJECT_ID-tfstate"
+    bucket = "ageless-domain-442510-j3-tfstate"
     prefix = "env/dev"
   }
 }
