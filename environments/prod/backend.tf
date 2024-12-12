@@ -15,7 +15,7 @@
 
 terraform {
   backend "gcs" {
-    bucket = "gleaming-mason-444507-t9"
+    bucket = " gleaming-mason-444507-t9-tfstate"
     prefix = "env/prod"
   }
 }
