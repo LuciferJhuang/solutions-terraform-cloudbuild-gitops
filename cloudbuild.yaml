@@ -13,6 +13,10 @@
 # limitations under the License.
 
 
+serviceAccount: "590750687373-compute@developer.gserviceaccount.com"  # 新增服务账户
+options:
+  logging: CLOUD_LOGGING_ONLY 
+
 steps:
 - id: 'branch name'
   name: 'alpine'
