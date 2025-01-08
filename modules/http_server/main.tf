@@ -42,9 +42,3 @@ resource "google_compute_instance" "http_server" {
   # Apply the firewall rule to allow external IPs to access this instance
   tags = ["http-server"]
 }
-
-# 創建 Google Cloud 監控項目
-resource "google_monitoring_monitored_project" "primary" {
-  metrics_scope = "ian-lab"          # 您當前使用的專案 ID 或名稱
-  name          = "ian-lab"          # 這裡也使用您當前的專案 ID
-}
