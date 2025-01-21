@@ -12,8 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-options:
-  logsBucket: gs://gcp-g-i-clz-p-net-hub-tfstate  # Replace with your actual bucket name
+logsBucket: gs://gcp-g-i-clz-p-net-hub-tfstate  # Replace with your actual bucket name
 
 steps:
 - id: 'branch name'
