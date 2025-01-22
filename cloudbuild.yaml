@@ -1,17 +1,4 @@
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
+logsBucket: gs://gcp-g-i-clz-p-net-hub-tfstate  # Replace with your actual bucket name
 
 steps:
 - id: 'branch name'
@@ -57,18 +44,20 @@ steps:
   - | 
       if [ -d "environments/$BRANCH_NAME/" ]; then
         cd environments/$BRANCH_NAME
-        terraform plan
+        terraform plan > plan_output.txt
+        gsutil cp plan_output.txt ${logsBucket}/plan_output_${BRANCH_NAME}.txt
       else
         for dir in environments/*/
         do 
           cd ${dir}   
-          env=${dir%*/}
+          env=${dir%*/}  
           env=${env#*/}  
           echo ""
           echo "*************** TERRAFORM PLAN ******************"
           echo "******* At environment: ${env} ********"
           echo "*************************************************"
-          terraform plan || exit 1
+          terraform plan > plan_output_${env}.txt
+          gsutil cp plan_output_${env}.txt ${logsBucket}/plan_output_${env}.txt
           cd ../../
         done
       fi 
@@ -82,11 +71,12 @@ steps:
   - '-c'
   - | 
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        cd environments/$BRANCH_NAME      
-        terraform apply -auto-approve
+        cd environments/$BRANCH_NAME
+        terraform apply -auto-approve > apply_output.txt
+        gsutil cp apply_output.txt ${logsBucket}/apply_output_${BRANCH_NAME}.txt
       else
         echo "***************************** SKIPPING APPLYING *******************************"
         echo "Branch '$BRANCH_NAME' does not represent an official environment."
         echo "*******************************************************************************"
       fi
-# [END tf-apply]      
+# [END tf-apply]
