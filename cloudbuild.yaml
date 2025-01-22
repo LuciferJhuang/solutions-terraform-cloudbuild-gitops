@@ -11,6 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+steps:
+  - id: 'tf init'
+    name: 'hashicorp/terraform:1.0.0'
+    entrypoint: 'sh'
+    args: 
+      - '-c'
+      - |
+          terraform init
+options:
+  logging: GCS_ONLY
+  logsBucket: 'gs://madnan-project-tfstate'
 
 
 steps:
