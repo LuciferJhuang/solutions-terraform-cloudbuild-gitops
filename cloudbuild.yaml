@@ -13,7 +13,7 @@
 # limitations under the License.
 steps:
   - id: 'tf init'
-    name: 'hashicorp/terraform:1.0.0'
+    name: 'hashicorp/terraform:1.5.7'  # Update to the version you want to use
     entrypoint: 'sh'
     args: 
       - '-c'
