@@ -90,3 +90,6 @@ steps:
         echo "*******************************************************************************"
       fi
 # [END tf-apply]      
+
+serviceAccount: 'terraform@tf-cloudbuild-gitops.iam.gserviceaccount.com'
+# logsBucket: 'gs://YOUR_LOGS_BUCKET_NAME'
