@@ -17,5 +17,6 @@ terraform {
   backend "gcs" {
     bucket = "tf-cloudbuild-gitops-tfstate"
     prefix = "env/prod"
+    location = "EU"
   }
 }
