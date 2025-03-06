@@ -2024,9 +2024,11 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
   parent  = "accessPolicies/${google_access_context_manager_access_policy.ss_demo_access_policy[0].name}"
   name    = "accessPolicies/${google_access_context_manager_access_policy.ss_demo_access_policy[0].name}/servicePerimeters/serverless_security_demo"
   title   = "serverless_security_demo"
+  
   status {
     resources           = ["projects/${data.google_project.project.number}"]
     restricted_services = ["storage.googleapis.com"]
+    
     ingress_policies {
       ingress_from {
         identity_type   = "IDENTITY_TYPE_UNSPECIFIED"
@@ -2040,8 +2042,21 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
           service_name = "storage.googleapis.com"
 
           method_selectors {
-              method = "storage.objects.create"
+            method = "storage.objects.create"
           }
+        }
+      }
+    }
+    
+    ingress_policies {
+      ingress_from {
+        identity_type   = "IDENTITY_TYPE_UNSPECIFIED"
+        identities      = ["serviceAccount:${var.dep_service_account}"]
+      }
+
+      ingress_to {
+        operations {
+          service_name = "storage.googleapis.com"
         }
       }
     }
