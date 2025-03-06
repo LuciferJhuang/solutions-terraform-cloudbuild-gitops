@@ -2016,7 +2016,7 @@ resource "google_access_context_manager_access_policy" "ss_demo_access_policy" {
   count   = var.create_ss_demo ? 1 : 0
   parent  = "organizations/${var.organization}"
   title   = "serverless_security_demo"
-  scopes  = ["projects/${google_project.project.number}"]
+  scopes  = ["projects/${var.project}"]
 }
 
 resource "google_access_context_manager_service_perimeter" "service-perimeter" {
