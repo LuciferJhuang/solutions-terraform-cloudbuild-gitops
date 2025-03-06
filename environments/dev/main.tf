@@ -2029,9 +2029,6 @@ resource "google_access_context_manager_service_perimeter" "service-perimeter" {
     restricted_services = ["storage.googleapis.com"]
     ingress_policies {
       ingress_from {
-        sources {
-          access_level  = google_access_context_manager_access_level.test-access.name
-        }
         identity_type   = "IDENTITY_TYPE_UNSPECIFIED"
         identities      = ["serviceAccount:${module.serverless-security-cloud-function.sa-email}"]
       }
