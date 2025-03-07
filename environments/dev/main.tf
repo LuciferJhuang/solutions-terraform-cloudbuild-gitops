@@ -2006,7 +2006,7 @@ module "serverless-security-cloud-function" {
 }
 
 # IAM entry for service account of serverless-security function over token bucket
-resource "google_storage_bucket_iam_member" "raw_bucket_read" {
+resource "google_storage_bucket_iam_member" "ss_demo_function_bucket_read" {
   bucket  = google_storage_bucket.token_bucket.name
   role    = "roles/storage.objectUser"
   member  = "serviceAccount:${module.serverless-security-cloud-function.sa-email}"
@@ -2074,7 +2074,7 @@ resource "google_service_account" "run_ss_demo_service_account" {
 }
 
 # IAM entry for service account of serverless-security run service over token bucket
-resource "google_storage_bucket_iam_member" "raw_bucket_read" {
+resource "google_storage_bucket_iam_member" "ss_demo_run_bucket_read" {
   count   = var.create_ss_demo ? 1 : 0
   bucket  = google_storage_bucket.token_bucket.name
   role    = "roles/storage.objectUser"
