@@ -2049,8 +2049,6 @@ resource "google_cloud_run_v2_service" "serveress_security_run_service" {
   location  = var.region
   ingress   = "INGRESS_TRAFFIC_ALL"
   
-  deletion_protection = false
-
   template {
     containers {
       image   = "us-central1-docker.pkg.dev/secops-project-348011/binauthz-demo-repo/serverless-security-demo:latest"
