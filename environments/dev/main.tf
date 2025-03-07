@@ -2042,60 +2042,52 @@ resource "google_storage_bucket_iam_member" "ss_demo_function_bucket_read" {
 }
 
 # Cloud Run service to read secure tokens
-resource "google_cloud_run_service" "serveress_security_run_service" {
+resource "google_cloud_run_v2_service" "serveress_security_run_service" {
   count     = var.create_ss_demo ? 1 : 0
   name      = "serverless-security-demo"
+  project   = var.project
   location  = var.region
+  ingress   = "INGRESS_TRAFFIC_ALL"
+  
+  deletion_protection = false
 
   template {
-    spec {
-      containers {
-        image   = "us-central1-docker.pkg.dev/secops-project-348011/binauthz-demo-repo/serverless-security-demo:latest"
-        ports {
-          container_port = 8080
-        }
-        env {
-          name = "PROJECT_NAME"
-          value = var.project
-        }
-        env {
-          name = "TOKEN_BUCKET"
-          value = google_storage_bucket.token_bucket.name
-        }
-        env {
-          name = "TOKEN_OBJECT"
-          value = "secure_token"
-        }
-        env {
-          name = "KMS_KEY"
-          value = google_kms_crypto_key.serverless_security_demo_key.id
-        }
+    containers {
+      image   = "us-central1-docker.pkg.dev/secops-project-348011/binauthz-demo-repo/serverless-security-demo:latest"
+      ports {
+        container_port = 8080
       }
-      service_account_name = google_service_account.run_ss_demo_service_account[0].email
-    }
-    metadata {
-      annotations = {
-        "autoscaling.knative.dev/maxScale"      = "2"
-        "run.googleapis.com/client-name"        = "terraform"
+      env {
+        name = "PROJECT_NAME"
+        value = var.project
+      }
+      env {
+        name = "TOKEN_BUCKET"
+        value = google_storage_bucket.token_bucket.name
+      }
+      env {
+        name = "TOKEN_OBJECT"
+        value = "secure_token"
+      }
+      env {
+        name = "KMS_KEY"
+        value = google_kms_crypto_key.serverless_security_demo_key.id
       }
     }
-  }
-
-  metadata {
-    annotations = {
-      "run.googleapis.com/ingress"            = "all"
+    
+    service_account = google_service_account.run_ss_demo_service_account[0].email
+    
+    scaling {
+      max_instance_count = 2
     }
-  }
 
-  traffic {
-    percent         = 100
-    latest_revision = true
-  }
-
-  lifecycle {
-    ignore_changes = [
-      metadata[0].annotations,
-    ]
+    vpc_access{
+      network_interfaces {
+        network     = module.vpc.id
+        subnetwork  = module.vpc.subnet
+      }
+      egress = "ALL_TRAFFIC"
+    }
   }
 }
 
