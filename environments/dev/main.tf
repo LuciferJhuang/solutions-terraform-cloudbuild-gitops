@@ -2081,6 +2081,15 @@ resource "google_storage_bucket_iam_member" "ss_demo_run_bucket_read" {
   member  = "serviceAccount:${google_service_account.run_ss_demo_service_account[0].email}"
 }
 
+# IAM entry for pensande user to invoke serverless-security run service
+resource "google_cloud_run_service_iam_member" "pensande_ss_demo_run" {
+  count     = var.create_ss_demo ? 1 : 0
+  service   = google_cloud_run_service.serveress_security_run_service[0].name
+  location  = google_cloud_run_service.serveress_security_run_service[0].location
+  role      = "roles/run.invoker"
+  member    = "user:${var.iap_user}"
+}
+
 resource "google_access_context_manager_access_policy" "ss_demo_access_policy" {
   count   = var.create_ss_demo ? 1 : 0
   parent  = "organizations/${var.organization}"
