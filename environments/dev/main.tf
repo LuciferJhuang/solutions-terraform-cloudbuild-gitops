@@ -2021,7 +2021,7 @@ resource "google_cloud_run_service" "serveress_security_run_service" {
   template {
     spec {
       containers {
-        image   = "us-central1-docker.pkg.dev/secops-project-348011/binauthz-demo-repo/iap-run-sql-demo@sha256:5988b1f921be502339fee2ada7fbd9046e9cfc4ee731e22c3c7045d35f3bd0a2"
+        image   = "us-central1-docker.pkg.dev/secops-project-348011/binauthz-demo-repo/serverless-security-demo:latest"
         ports {
           container_port = 8080
         }
