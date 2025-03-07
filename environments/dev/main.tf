@@ -2122,10 +2122,10 @@ resource "google_kms_crypto_key_iam_member" "ss_demo_key_decrypter" {
 }
 
 # IAM entry for pensande user to invoke serverless-security run service
-resource "google_cloud_run_service_iam_member" "pensande_ss_demo_run" {
+resource "google_cloud_run_v2_service_iam_member" "pensande_ss_demo_run" {
   count     = var.create_ss_demo ? 1 : 0
-  service   = google_cloud_run_service.serveress_security_run_service[0].name
-  location  = google_cloud_run_service.serveress_security_run_service[0].location
+  name      = google_cloud_run_v2_service.serveress_security_run_service[0].name
+  location  = google_cloud_run_v2_service.serveress_security_run_service[0].location
   role      = "roles/run.invoker"
   member    = "user:${var.iap_user}"
 }
