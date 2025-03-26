@@ -49,14 +49,17 @@ resource "google_cloudfunctions2_function" "function" {
     }
   }
 
-  event_trigger {
-    event_type    = var.triggers[0].event_type
-    pubsub_topic  = var.triggers[0].event_type == "google.cloud.pubsub.topic.v1.messagePublished" ? var.triggers[0].resource : null
-    dynamic "event_filters" {
-      for_each = var.triggers[0].event_type == "google.cloud.storage.object.v1.finalized" ? var.triggers : []
-      content {
-        attribute = "bucket"
-        value     = event_filters.value.resource
+  dynamic "event_trigger" {
+    for_each = var.triggers == null ? [] : var.triggers
+    content {
+      event_type  = event_trigger.value.event_type
+      pubsub_topic = event_trigger.value.event_type == "google.cloud.pubsub.topic.v1.messagePublished" ? event_trigger.value.resource : null
+      dynamic "event_filters" {
+        for_each = event_trigger.value.event_type == "google.cloud.storage.object.v1.finalized" ? [] : var.triggers
+        content {
+          attribute = "bucket"
+          value     = event_filters.value.resource
+        }
       }
     }
   }
