@@ -54,12 +54,9 @@ resource "google_cloudfunctions2_function" "function" {
     content {
       event_type  = event_trigger.value.event_type
       pubsub_topic = event_trigger.value.event_type == "google.cloud.pubsub.topic.v1.messagePublished" ? event_trigger.value.resource : null
-      dynamic event_filters {
-        for_each = event_trigger.value.event_type != "google.cloud.storage.object.v1.finalized" ? null : event_trigger.value.resource
-        content {
-          attribute = "bucket"
-          value     = event_trigger.value.resource
-        }
+      event_filters {
+        attribute = event_trigger.value.event_type == "google.cloud.storage.object.v1.finalized" ? "bucket" : null
+        value     = event_trigger.value.event_type == "google.cloud.storage.object.v1.finalized" ? event_trigger.value.resource : null
       }
     }
   }
