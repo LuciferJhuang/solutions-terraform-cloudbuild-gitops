@@ -36,10 +36,6 @@ provider "google-beta" {
   region    = var.region
 }
 
-data "google_project" "project" {
-  project_id = var.project
-}
-
 # GCS bucket to store cloud function source codes
 resource "google_storage_bucket" "bucket" {
   name                          = "${var.project}-source-code"
