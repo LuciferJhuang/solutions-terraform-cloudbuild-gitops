@@ -35,6 +35,6 @@ module "im-workspace" {
  project_id = e6j2-training
  deployment_id = cloudbuild-terraform-lab
  im_deployment_repo_uri = https://github.com/LuciferJhuang/solutions-terraform-cloudbuild-gitops
-
+ im_deployment_ref = dev
  github_personal_access_token = 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
 }
