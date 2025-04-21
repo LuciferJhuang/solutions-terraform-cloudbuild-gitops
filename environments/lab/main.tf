@@ -8,7 +8,7 @@ terraform {
 
 provider "google" {
 
-  project = "qwiklabs-gcp-01-ac782eedea4e"
+  project = "e6j2-training"
   region  = "us-east4"
   zone    = "us-east4-a"
 }
