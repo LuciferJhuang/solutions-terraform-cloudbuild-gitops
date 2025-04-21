@@ -14,7 +14,7 @@
 
 
 locals {
-  "env" = "dev"
+  env = "dev"
 }
 
 provider "google" {
@@ -37,4 +37,15 @@ module "firewall" {
   source  = "../../modules/firewall"
   project = "${var.project}"
   subnet  = "${module.vpc.subnet}"
+}
+
+module "im-workspace" {
+ source = "terraform-google-modules/bootstrap/google//modules/im_cloudbuild_workspace"
+ version = "~> 7.0"
+
+ project_id = e6j2-training
+ deployment_id = cloudbuild-terraform-demo
+ im_deployment_repo_uri = https://github.com/LuciferJhuang/solutions-terraform-cloudbuild-gitops
+
+ github_personal_access_token = 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
 }
