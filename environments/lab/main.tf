@@ -37,9 +37,4 @@ module "im-workspace" {
  im_deployment_repo_uri = https://github.com/LuciferJhuang/solutions-terraform-cloudbuild-gitops
 
  github_personal_access_token = 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
-
- gcloud infra-manager deployments apply projects/e6j2-training/locations/asia-east1/deployments/cloudbuild-terraform-lab \ 
-   --service-account projects/e6j2-training/serviceAccounts/chttesting@e6j2-training.iam.gserviceaccount.com \
-   --git-source-repo=https://github.com/LuciferJhuang/solutions-terraform-cloudbuild-gitops \
-   --git-source-directory=environments/lab \
 }
