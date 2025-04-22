@@ -1,1 +1,1 @@
-project="PROJECT_ID"
+project="e6j2-training"
