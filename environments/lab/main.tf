@@ -30,9 +30,16 @@ resource "google_compute_instance" "terraform" {
 
 module "im-workspace" {
  source = "terraform-google-modules/bootstrap/google//modules/im_cloudbuild_workspace"
- version = "~> 7.0"
+ version = "~> 11.0"
  project_id = "e6j2-training"
- deployment_id = "cloudbuild-terraform-lab"
+ deployment_id = "im-example-github-deployment"
+
+ tf_repo_type           = "GITHUB"
  im_deployment_repo_uri = "https://github.com/LuciferJhuang/solutions-terraform-cloudbuild-gitops"
+ im_deployment_ref      = "lab"
+ im_tf_variables        = "project_id=e6j2-training"
+ tf_version             = "1.5.7"
+
+ github_app_installation_id   = "53226479"
  github_personal_access_token = "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"
 }
