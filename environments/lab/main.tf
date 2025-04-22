@@ -31,6 +31,7 @@ resource "google_compute_instance" "terraform" {
 module "im-workspace" {
  source = "terraform-google-modules/bootstrap/google//modules/im_cloudbuild_workspace"
  version = "~> 11.0"
+
  project_id = "e6j2-training"
  deployment_id = "im-example-github-deployment"
 
